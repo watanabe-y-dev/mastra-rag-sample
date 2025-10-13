@@ -3,8 +3,8 @@
 ## フェーズ 0: 環境セットアップ
 
 ### Docker & PostgreSQL
-- [ ] docker-compose.yml の作成
-- [ ] PostgreSQL + pgvector コンテナの起動
+- [x] docker-compose.yml の作成
+- [x] PostgreSQL + pgvector コンテナの起動
 - [ ] pgvector 拡張のインストール確認
 - [ ] .env ファイルの設定確認
 
