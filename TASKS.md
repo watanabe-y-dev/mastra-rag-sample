@@ -9,13 +9,13 @@
 - [x] .env ファイルの設定確認
 
 ### 依存関係のインストール
-- [ ] @modelcontextprotocol/sdk のインストール
-- [ ] @mastra/pg のインストール
-- [ ] @ai-sdk/openai と ai のインストール
-- [ ] express と cors のインストール
-- [ ] dotenv のインストール
-- [ ] zod のインストール
-- [ ] TypeScript 型定義のインストール
+- [x] @modelcontextprotocol/sdk のインストール（MCP Server の実装）
+- [x] @mastra/pg のインストール（PostgreSQL + pgvector ベクトルストア）
+- [x] @ai-sdk/openai と ai のインストール（OpenAI API でテキストをベクトル化）
+- [x] express と cors のインストール（HTTP Server と CORS 対応）
+- [x] dotenv のインストール（環境変数管理）
+- [x] zod のインストール（スキーマバリデーション）
+- [x] TypeScript 型定義のインストール（@types/express, @types/cors, @types/node, typescript, tsx）
 
 ---
 
@@ -152,12 +152,12 @@
 ## 進捗管理
 
 ### 全体進捗
-- 完了: 4 / 60 タスク
+- 完了: 10 / 60 タスク
 - 進行中: 0 タスク
-- 未着手: 56 タスク
+- 未着手: 50 タスク
 
 ### フェーズ別進捗
-- フェーズ 0: 4 / 10
+- フェーズ 0: 10 / 10 ✅ 完了
 - フェーズ 1: 0 / 12
 - フェーズ 2: 0 / 5
 - フェーズ 3: 0 / 8
