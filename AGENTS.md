@@ -7,13 +7,13 @@ Mastra を使って **シンプルな RAG (Retrieval-Augmented Generation) サ�
 **特徴:**
 - 学習・サンプル目的のシンプルな実装
 - 最小限のコードで RAG + MCP の基本を理解できる
-- 1 ファイルで完結する設計
+- シンプルなファイル構成（必要に応じてファイル分割）
 
 ---
 
 ## プロジェクト全体のアーキテクチャ（サンプル版）
 
-サンプルとして、**シンプルで理解しやすい 1 ファイル構成**を採用:
+サンプルとして、**シンプルで理解しやすいファイル構成**を採用:
 
 ```
 ┌─────────────────────────────────────────┐
@@ -40,12 +40,12 @@ Mastra を使って **シンプルな RAG (Retrieval-Augmented Generation) サ�
 
 | 項目 | 本番向け実装 | サンプル実装 (このプロジェクト) |
 |-----|------------|---------------------------|
-| **レイヤー数** | 3 層（Core/App/Interface） | 1 ファイルで完結 |
+| **レイヤー数** | 3 層（Core/App/Interface） | シンプルな構成（必要に応じて分割） |
 | **ストレージ** | ベクトル DB + メタデータ DB 分離 | PostgreSQL のみ（統合型） |
 | **永続化** | PostgreSQL + pgvector | ✅ PostgreSQL + pgvector |
 | **Agent** | RAG Agent で高度な制御 | シンプルな関数 |
 | **ツール数** | 複数（search/answer/add/list） | 1 つ（search のみ） |
-| **コード量** | 数百〜数千行 | 150 行程度 |
+| **コード量** | 数百〜数千行 | 200〜300 行程度 |
 | **学習難易度** | 高い | 中 |
 
 ---
@@ -89,8 +89,17 @@ Mastra を使って **シンプルな RAG (Retrieval-Augmented Generation) サ�
 
 ```
 src/
-└── rag-mcp.ts    # 全てここに！（100行程度）
+├── index.ts              # エントリーポイント（サーバー起動）
+├── vector-store.ts       # ベクトルストア初期化とサンプルデータ
+├── rag.ts                # RAG 検索ロジック
+├── mcp-server.ts         # MCP Server とツール定義
+└── http-server.ts        # Express.js サーバーと認証
 ```
+
+**ファイル分割の方針:**
+- 各ファイルは 50〜100 行程度に収める
+- 機能ごとにファイルを分割して可読性を向上
+- シンプルさを保ちながら、適度な構造化を行う
 
 ---
 
@@ -139,13 +148,13 @@ npm install @modelcontextprotocol/sdk @mastra/pg @ai-sdk/openai ai express cors 
 
 ### Step 2: コード実装
 
-`src/rag-mcp.ts` に全てを実装:
+機能ごとにファイルを分割して実装:
 
-1. ベクトルストアの初期化
-2. サンプルデータの追加
-3. 検索関数の実装
-4. MCP Server の実装
-5. ツールの定義
+1. **vector-store.ts**: ベクトルストア初期化とサンプルデータ追加
+2. **rag.ts**: RAG 検索関数の実装
+3. **mcp-server.ts**: MCP Server とツール定義
+4. **http-server.ts**: Express.js サーバーと認証ミドルウェア
+5. **index.ts**: エントリーポイントとサーバー起動
 
 ### Step 3: MCP 設定
 
@@ -176,9 +185,10 @@ Claude Desktop から `rag_search` ツールを呼び出して検索
 - ドキュメント追加ツール (`rag_add_document`)
 - ドキュメント一覧ツール (`rag_list_documents`)
 
-### レベル 2: 永続化
-- `@mastra/pg` で PostgreSQL + pgvector に移行
-- ドキュメントを永続化
+### レベル 2: ファイル構造の改善
+- 型定義を別ファイルに分離（types.ts）
+- 設定を別ファイルに分離（config.ts）
+- エラーハンドリングを強化
 
 ### レベル 3: 高度化
 - Agent の実装（クエリ最適化、品質管理）
