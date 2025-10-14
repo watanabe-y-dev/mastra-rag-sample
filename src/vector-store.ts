@@ -16,3 +16,22 @@ export const vectorStore = new PgVector({
 });
 
 console.log('✅ PgVector instance created');
+
+// ベクトルインデックスの作成
+export async function initializeIndex(): Promise<void> {
+  try {
+    await vectorStore.createIndex({
+      indexName: 'documents',
+      dimension: 1536, // OpenAI text-embedding-3-small の次元数
+      metric: 'cosine', // コサイン類似度
+    });
+    console.log('✅ Vector index "documents" created successfully');
+  } catch (error) {
+    if (error instanceof Error && error.message.includes('already exists')) {
+      console.log('ℹ️  Vector index "documents" already exists');
+    } else {
+      console.error('❌ Failed to create vector index:', error);
+      throw error;
+    }
+  }
+}
