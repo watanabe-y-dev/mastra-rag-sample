@@ -1,0 +1,16 @@
+import { openai } from '@ai-sdk/openai';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+// 環境変数の読み込み
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+
+if (!OPENAI_API_KEY) {
+  throw new Error('OPENAI_API_KEY is not set in environment variables');
+}
+
+// OpenAI Embeddings モデルの設定
+export const embeddingModel = openai.embedding('text-embedding-3-small');
+
+console.log('✅ OpenAI Embeddings API configured');
