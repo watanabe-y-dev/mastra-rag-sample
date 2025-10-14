@@ -1,4 +1,5 @@
 import { openai } from '@ai-sdk/openai';
+import { embed } from 'ai';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -14,3 +15,12 @@ if (!OPENAI_API_KEY) {
 export const embeddingModel = openai.embedding('text-embedding-3-small');
 
 console.log('✅ OpenAI Embeddings API configured');
+
+// テキストを埋め込みベクトルに変換する関数
+export async function generateEmbedding(text: string): Promise<number[]> {
+  const { embedding } = await embed({
+    model: embeddingModel,
+    value: text,
+  });
+  return embedding;
+}
